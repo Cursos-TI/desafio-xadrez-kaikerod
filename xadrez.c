@@ -1,39 +1,85 @@
 #include <stdio.h>
 
+// Definindo uma constante para o número de movimentos
+#define MOVIMENTOS 5
+
+// --- Protótipos das Funções ---
+void moverTorre(int passos);
+void moverRainha(int passos);
+void moverBispoComLoops(int tamanho);
+void moverCavalo();
+
+
 int main() {
+    printf("--- Movimentando as Peças ---\n\n");
 
-    int torre = 0, bispo = 0, rainha = 0;
-    int cavaloX = 0, cavaloY = 0; //Vertical e horizontal
+    // 1. Movimento da Torre com função recursiva
+    printf("--- Movimento da Torre (Recursivo) ---\n");
+    moverTorre(MOVIMENTOS);
+    printf("\n"); // Separa as peças
 
-    //Torre se move para a direita
-    for (torre = 1; torre <= 5; torre++) {
-        printf("Torre moveu para direita\n");
-    }
-        printf("\n"); //Separa as peças
-    
+    // 2. Movimento da Rainha com função recursiva
+    printf("--- Movimento da Rainha (Recursivo) ---\n");
+    moverRainha(MOVIMENTOS);
+    printf("\n"); // Separa as peças
 
-    //Bispo se move para a diagonal direita, cima
-    while (bispo != 5) {
-        printf("Bispo moveu para cima, direita\n");
-        bispo++;
-    }
-        printf("\n"); //Separa as peças
+    // 3. Movimento do Bispo com Loops Aninhados
+    printf("--- Movimento do Bispo (Loops Aninhados) ---\n");
+    moverBispoComLoops(MOVIMENTOS);
+    printf("\n");
 
-    //Rainha se move para a esquerda
-    do {
-        printf("Rainha moveu para esquerda\n");
-        rainha++;
-    } while (rainha != 5);
-        printf("\n"); //Separa as peças
+    // 4. Movimento do Cavalo com Loops Aninhados
+    printf("--- Movimento do Cavalo (Loops Aninhados) ---\n");
+    moverCavalo();
+    printf("\n");
 
-
-    //Cavalo se move para baixo, esquerda
-    for (cavaloY = 1; cavaloY <= 2; cavaloY++) {
-        printf("Cavalo moveu para baixo\n");
-        for (cavaloX = 1; cavaloX < cavaloY; cavaloX++) {
-            printf("Cavalo moveu para esquerda\n");
-        }
-    }
 
     return 0;
+}
+
+void moverTorre(int passos) {
+    // Caso Base
+    if (passos <= 0) {
+        return;
+    }
+    // Ação
+    printf("Torre moveu para direita\n");
+    // Passo Recursivo
+    moverTorre(passos - 1);
+}
+
+void moverRainha(int passos) {
+    // Caso Base
+    if (passos <= 0) {
+        return;
+    }
+    // Ação
+    printf("Rainha moveu para esquerda\n");
+    // Passo Recursivo
+    moverRainha(passos - 1);
+}
+
+void moverBispoComLoops(int tamanho) {
+    // Loop externo (vertical)
+    for (int y = 1; y <= tamanho; y++) {
+        // Loop interno (horizontal)
+        for (int x = 1; x <= tamanho; x++) {
+            if (y == x) {
+                printf("Bispo moveu na diagonal para a casa (%d, %d)\n", y, x);
+            }
+        }
+    }
+}
+
+void moverCavalo() {
+    int cavaloX = 0;
+    int cavaloY = 0;
+
+
+    for (cavaloY = 1; cavaloY <= 2; cavaloY++) {
+        printf("Cavalo moveu para cima\n");
+    }
+    for (cavaloX = 1; cavaloX < 2; cavaloX++) {
+        printf("Cavalo moveu para direita\n");
+    }
 }
